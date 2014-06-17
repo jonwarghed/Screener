@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/app/component/clock/clock.js" />
+        <item url="file://$PROJECT_DIR$/app/component/weather/weather.js" />
+        <item url="file://$PROJECT_DIR$/app/component/bus/bus.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/component/clock/clock.js" />
+      <root url="file://$PROJECT_DIR$/app/component/weather/weather.js" />
+      <root url="file://$PROJECT_DIR$/app/component/bus/bus.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
