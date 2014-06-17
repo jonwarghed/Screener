@@ -46,8 +46,8 @@ $(document).ready(function () {
 function AppViewModel() {
     self = this;
 	
-	this.icons = ko.observable("test");
-	this.temps  = ko.observable("test2");
+	this.icons = ko.observable("");
+	this.temps  = ko.observable("");
 	this.times  = ko.observable("");
 	this.date = ko.observable("");
 	
@@ -96,7 +96,7 @@ function AppViewModel() {
 	{
 		$.getJSON('http://api.openweathermap.org/data/2.5/weather', weatherParams, function(json, textStatus) {
 
-			var temp = json.main.temp;
+			var temp = Math.round(json.main.temp);
 			var temp_min = json.main.temp_min;
 			var temp_max = json.main.temp_max;
 			var wind = Math.round(json.wind.speed);
@@ -121,9 +121,9 @@ function AppViewModel() {
 			self.icons(windString + ' ' + sunString);
 		});
 
-		
 	};
-	setInterval(this.updateCurrentWeather(), 60000);
+	this.updateCurrentWeather();
+	setInterval(this.updateCurrentWeather, 60000);
 	//END of Weather
 
 
