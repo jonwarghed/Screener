@@ -1,0 +1,26 @@
+{
+  "name": "Screener",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jonwarghed/Screener",
+  "authors": [
+    "jon_warghed <jon.warghed@gmail.com>"
+  ],
+  "description": "Screener project",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "3.2.0-alpha",
+    "requirejs": "~2.1.14",
+    "jquery": "~2.1.1",
+    "requirejs-text": "~2.0.12",
+    "moment": "~2.7.0"
+  }
+}

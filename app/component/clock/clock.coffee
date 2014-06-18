@@ -1,15 +1,13 @@
-class ClockViewModel
-  constructor: ->
-    @now = ko.observable()
-    @hour = ko.computed =>
-      @now.format('HH:mm:ss')
-    @date = ko.computed =>
-      @now.format('L L L L')
+define ["knockout","moment"], (ko,moment) ->
+  class ClockViewModel
+    constructor: ->
+      @now = ko.observable(moment())
+      @hour = ko.computed =>
+        @now().format('HH:mm:ss')
+      @date = ko.computed =>
+        @now().format('LLLL')
 
-    updateClock: =>
-      @now moment()
+      updateClock: =>
+        @now moment()
 
-  setInterval @updateClock, 999
-
-$ ->
-  ko.applyBindings new ClockViewModel
+    setInterval @updateClock, 999
