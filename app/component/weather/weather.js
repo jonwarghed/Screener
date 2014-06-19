@@ -5,28 +5,7 @@
   define(["knockout", "jquery"], function(ko, $) {
     var WeatherViewModel;
     return WeatherViewModel = (function() {
-      var iconTable, weatherParams;
-
-      iconTable = {
-        '01d': 'wi-day-sunny',
-        '02d': 'wi-day-cloudy',
-        '03d': 'wi-cloudy',
-        '04d': 'wi-cloudy-windy',
-        '09d': 'wi-showers',
-        '10d': 'wi-rain',
-        '11d': 'wi-thunderstorm',
-        '13d': 'wi-snow',
-        '50d': 'wi-fog',
-        '01n': 'wi-night-clear',
-        '02n': 'wi-night-cloudy',
-        '03n': 'wi-night-cloudy',
-        '04n': 'wi-night-cloudy',
-        '09n': 'wi-night-showers',
-        '10n': 'wi-night-rain',
-        '11n': 'wi-night-thunderstorm',
-        '13n': 'wi-night-snow',
-        '50n': 'wi-night-alt-cloudy-windy'
-      };
+      var weatherParams;
 
       weatherParams = {
         'q': 'Gothenburg,Sweden',
@@ -35,6 +14,26 @@
 
       function WeatherViewModel() {
         this.updateCurrentWeather = __bind(this.updateCurrentWeather, this);
+        this.iconTable = {
+          '01d': 'wi-day-sunny',
+          '02d': 'wi-day-cloudy',
+          '03d': 'wi-cloudy',
+          '04d': 'wi-cloudy-windy',
+          '09d': 'wi-showers',
+          '10d': 'wi-rain',
+          '11d': 'wi-thunderstorm',
+          '13d': 'wi-snow',
+          '50d': 'wi-fog',
+          '01n': 'wi-night-clear',
+          '02n': 'wi-night-cloudy',
+          '03n': 'wi-night-cloudy',
+          '04n': 'wi-night-cloudy',
+          '09n': 'wi-night-showers',
+          '10n': 'wi-night-rain',
+          '11n': 'wi-night-thunderstorm',
+          '13n': 'wi-night-snow',
+          '50n': 'wi-night-alt-cloudy-windy'
+        };
         this.weatherData = ko.observable();
         this.sunrise = ko.computed((function(_this) {
           return function() {
@@ -86,7 +85,7 @@
         })(this));
         this.weatherIcon = ko.computed((function(_this) {
           return function() {
-            if (_this.weatherData() != null) {
+            if ((_this.weatherData() != null) && (_this.iconTable != null)) {
               ({
                 read: _this.iconTable[_this.weatherData().weather[0].icon]
               });
