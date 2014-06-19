@@ -34,81 +34,51 @@
           '13n': 'wi-night-snow',
           '50n': 'wi-night-alt-cloudy-windy'
         };
-        this.weatherData = ko.observable();
+        this.weatherData = ko.observable(null);
         this.sunrise = ko.computed((function(_this) {
           return function() {
             if (_this.weatherData() != null) {
-              ({
-                read: new Date(_this.weatherData().sys.sunrise * 1000).toTimeString().substring(0, 5)
-              });
+              return new Date(_this.weatherData().sys.sunrise * 1000).toTimeString().substring(0, 5);
             }
-            return {
-              deferEvaluation: true
-            };
           };
         })(this));
         this.sunset = ko.computed((function(_this) {
           return function() {
             if (_this.weatherData() != null) {
-              ({
-                read: new Date(_this.weatherData().sys.sunset * 1000).toTimeString().substring(0, 5)
-              });
+              return new Date(_this.weatherData().sys.sunset * 1000).toTimeString().substring(0, 5);
             }
-            return {
-              deferEvaluation: true
-            };
           };
         })(this));
         this.wind = ko.computed((function(_this) {
           return function() {
             if (_this.weatherData() != null) {
-              ({
-                read: Math.round(_this.weatherData().wind.speed)
-              });
+              return Math.round(_this.weatherData().wind.speed);
             }
-            return {
-              deferEvaluation: true
-            };
           };
         })(this));
         this.temperature = ko.computed((function(_this) {
           return function() {
             if (_this.weatherData() != null) {
-              ({
-                read: Math.round(_this.weatherData().main.temp)
-              });
+              return Math.round(_this.weatherData().main.temp);
             }
-            return {
-              deferEvaluation: true
-            };
           };
         })(this));
         this.weatherIcon = ko.computed((function(_this) {
           return function() {
-            if ((_this.weatherData() != null) && (_this.iconTable != null)) {
-              ({
-                read: _this.iconTable[_this.weatherData().weather[0].icon]
-              });
+            if (_this.weatherData() != null) {
+              return _this.iconTable[_this.weatherData().weather[0].icon];
             }
-            return {
-              deferEvaluation: true
-            };
           };
         })(this));
         this.isSunrise = ko.computed((function(_this) {
           return function() {
             var _ref;
             if (_this.weatherData() != null) {
-              ({
-                read: (_this.weatherData().sys.sunrise * 1000 < (_ref = new Date) && _ref < _this.weatherData().sys.sunset * 1000)
-              });
+              return (_this.weatherData().sys.sunrise * 1000 < (_ref = new Date) && _ref < _this.weatherData().sys.sunset * 1000);
             }
-            return {
-              deferEvaluation: true
-            };
           };
         })(this));
-        setInterval(this.updateCurrentWeather, 60000);
+        setInterval(this.updateCurrentWeather, 5000);
       }
 
       WeatherViewModel.prototype.updateCurrentWeather = function() {

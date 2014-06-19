@@ -27,27 +27,21 @@ define ["knockout","jquery"], (ko,$) ->
         '50n':'wi-night-alt-cloudy-windy'
 
 
-      @weatherData = ko.observable()
+      @weatherData = ko.observable(null)
       @sunrise = ko.computed =>
-        read : new Date(@weatherData().sys.sunrise*1000).toTimeString().substring 0,5 if @weatherData()?
-        deferEvaluation: true
+        new Date(@weatherData().sys.sunrise*1000).toTimeString().substring(0,5) if @weatherData()?
       @sunset = ko.computed =>
-        read : new Date(@weatherData().sys.sunset*1000).toTimeString().substring 0,5 if @weatherData()?
-        deferEvaluation: true
+        new Date(@weatherData().sys.sunset*1000).toTimeString().substring 0,5 if @weatherData()?
       @wind = ko.computed =>
-        read : Math.round @weatherData().wind.speed if @weatherData()?
-        deferEvaluation: true
+        Math.round @weatherData().wind.speed if @weatherData()?
       @temperature = ko.computed =>
-        read : Math.round @weatherData().main.temp if @weatherData()?
-        deferEvaluation: true
+        Math.round @weatherData().main.temp if @weatherData()?
       @weatherIcon = ko.computed =>
-        read : @iconTable[@weatherData().weather[0].icon] if @weatherData()? and @iconTable?
-        deferEvaluation: true
+        @iconTable[@weatherData().weather[0].icon] if @weatherData()?
       @isSunrise = ko.computed =>
-        read : @weatherData().sys.sunrise*1000 < new Date < @weatherData().sys.sunset*1000 if @weatherData()?
-        deferEvaluation: true
+        @weatherData().sys.sunrise*1000 < new Date < @weatherData().sys.sunset*1000 if @weatherData()?
 
-      setInterval @updateCurrentWeather,60000
+      setInterval @updateCurrentWeather,5000
 
     updateCurrentWeather: =>
       $.getJSON 'http://api.openweathermap.org/data/2.5/weather', weatherParams, @weatherData

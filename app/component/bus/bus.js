@@ -10,15 +10,19 @@
       function BusViewModel() {
         this.updateBusSchedule = __bind(this.updateBusSchedule, this);
         this.bus = ko.observableArray();
+        this.updateBusSchedule();
+        setInterval(this.updateBusSchedule, 100000);
       }
 
       tripQuestion = 'https://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?id=.kvil&format=json&jsonpCallback=?&direction=.anekd&authKey=5914945f-3e58-4bbc-8169-29571809775d&needJourneyDetail=0&timeSpan=1439&maxDeparturesPerLine=4';
 
       BusViewModel.prototype.updateBusSchedule = function() {
-        return $.getJSON(tripQuestion(this.bus));
+        return $.getJSON(tripQuestion, (function(_this) {
+          return function(data) {
+            return _this.bus(data.DepartureBoard.Departure);
+          };
+        })(this));
       };
-
-      setInterval(BusViewModel.updateBusSchedule, 100000);
 
       return BusViewModel;
 

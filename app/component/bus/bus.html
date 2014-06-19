@@ -1,3 +1,8 @@
 <div class="small light">
-   <div data-bind="foreach: bus"><span data-bind="text: line "></span><span data-bind="text: time "></span></div>
+   <div data-bind="foreach: bus">
+       <div>
+       <span data-bind="text: name"></span>
+       <span data-bind="text: rtTime "></span>
+       </div>
+   </div>
 </div>

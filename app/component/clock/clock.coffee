@@ -5,9 +5,9 @@ define ["knockout","moment"], (ko,moment) ->
       @hour = ko.computed =>
         @now().format('HH:mm:ss')
       @date = ko.computed =>
-        @now().format('LLLL')
+        @now().format('dddd MMMM DD YYYY')
+      setInterval @updateClock, 999
 
-      updateClock: =>
-        @now moment()
+    updateClock: =>
+      @now moment()
 
-    setInterval @updateClock, 999
