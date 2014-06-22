@@ -1,8 +1,10 @@
-<div class="windsun small dimmed">
-    <span class="wi wi-strong-wind xdimmed" data-bind="text: wind"></span>
-    <span class="wi wi-sunrise xdimmed" data-bind="text: sunrise, visible: isSunrise"></span>
-    <span class="wi wi-sunset xdimmed" data-bind="text: sunset, visible: !isSunrise"></span>
+<div data-bind="visible: !weatherData">Loading...</div>
+
+<div class="windsun small dimmed" data-bind="visible: weatherData">
+    <div class="wi wi-strong-wind xdimmed" data-bind="text: wind"><span>m/s</span></div>
+    <div class="wi wi-sunrise xdimmed" data-bind="text: sunrise"></div>
+    <div class="wi wi-sunset xdimmed" data-bind="text: sunset"></div>
 </div>
-<div class="temp">
+<div class="temp" data-bind="visible: weatherData">
     <span class="icon dimmed wi" data-bind="css: weatherIcon, text: temperature"></span>
 </div>

@@ -35,20 +35,26 @@
           '50n': 'wi-night-alt-cloudy-windy'
         };
         this.weatherData = ko.observable(null);
-        this.sunrise = ko.computed((function(_this) {
-          return function() {
-            if (_this.weatherData() != null) {
-              return new Date(_this.weatherData().sys.sunrise * 1000).toTimeString().substring(0, 5);
-            }
-          };
-        })(this));
-        this.sunset = ko.computed((function(_this) {
-          return function() {
-            if (_this.weatherData() != null) {
-              return new Date(_this.weatherData().sys.sunset * 1000).toTimeString().substring(0, 5);
-            }
-          };
-        })(this));
+        this.sunrise = ko.computed({
+          read: (function(_this) {
+            return function() {
+              if (_this.weatherData() != null) {
+                return new Date(_this.weatherData().sys.sunrise * 1000).toTimeString().substring(0, 5);
+              }
+            };
+          })(this),
+          deferEvaluation: true
+        });
+        this.sunset = ko.computed({
+          read: (function(_this) {
+            return function() {
+              if (_this.weatherData() != null) {
+                return new Date(_this.weatherData().sys.sunset * 1000).toTimeString().substring(0, 5);
+              }
+            };
+          })(this),
+          deferEvaluation: true
+        });
         this.wind = ko.computed((function(_this) {
           return function() {
             if (_this.weatherData() != null) {
@@ -72,13 +78,13 @@
         })(this));
         this.isSunrise = ko.computed((function(_this) {
           return function() {
-            var _ref;
             if (_this.weatherData() != null) {
-              return (_this.weatherData().sys.sunrise * 1000 < (_ref = new Date) && _ref < _this.weatherData().sys.sunset * 1000);
+              return _this.weatherData().sys.sunrise * 1000 < new Date;
             }
           };
         })(this));
-        setInterval(this.updateCurrentWeather, 5000);
+        this.updateCurrentWeather();
+        setInterval(this.updateCurrentWeather, 60000);
       }
 
       WeatherViewModel.prototype.updateCurrentWeather = function() {

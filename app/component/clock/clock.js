@@ -10,7 +10,7 @@
         this.now = ko.observable(moment());
         this.hour = ko.computed((function(_this) {
           return function() {
-            return _this.now().format('HH:mm:ss');
+            return _this.now().format('HH:mm');
           };
         })(this));
         this.date = ko.computed((function(_this) {

@@ -2,22 +2,34 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  define(["knockout", "jquery"], function(ko, $) {
+  define(["knockout", "jquery", "text!./bus.html"], function(ko, $, templateMarkup) {
     var BusViewModel;
-    return BusViewModel = (function() {
-      var tripQuestion;
-
-      function BusViewModel() {
+    BusViewModel = (function() {
+      function BusViewModel(params) {
         this.updateBusSchedule = __bind(this.updateBusSchedule, this);
+        this.setParameters = __bind(this.setParameters, this);
         this.bus = ko.observableArray();
+        this.name = ko.observable(params.name);
+        this.tripQuestion = "";
+        this.setParameters(params);
         this.updateBusSchedule();
-        setInterval(this.updateBusSchedule, 100000);
+        setInterval(this.updateBusSchedule, 30000);
       }
 
-      tripQuestion = 'https://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?id=.kvil&format=json&jsonpCallback=?&direction=.anekd&authKey=5914945f-3e58-4bbc-8169-29571809775d&needJourneyDetail=0&timeSpan=1439&maxDeparturesPerLine=4';
+      BusViewModel.prototype.setParameters = function(params) {
+        var authkey, baseurl, direction, id, maxDeparturesPerLine, standard, timeSpan;
+        id = "&id=" + params.start;
+        baseurl = 'https://api.vasttrafik.se/bin/rest.exe/v1/departureBoard';
+        direction = "&direction=" + params.direction;
+        timeSpan = "&timeSpan=" + (params.timeSpan != null ? params.timeSpan : 60);
+        maxDeparturesPerLine = "&maxDeparturesPerLine=" + (params.departures != null ? params.departures : 1);
+        authkey = "&authKey=5914945f-3e58-4bbc-8169-29571809775d";
+        standard = "?format=json&jsonpCallback=?&needJourneyDetail=0";
+        return this.tripQuestion = baseurl + standard + authkey + id + direction + timeSpan + maxDeparturesPerLine;
+      };
 
       BusViewModel.prototype.updateBusSchedule = function() {
-        return $.getJSON(tripQuestion, (function(_this) {
+        return $.getJSON(this.tripQuestion, (function(_this) {
           return function(data) {
             return _this.bus(data.DepartureBoard.Departure);
           };
@@ -27,6 +39,10 @@
       return BusViewModel;
 
     })();
+    return {
+      viewModel: BusViewModel,
+      template: templateMarkup
+    };
   });
 
 }).call(this);

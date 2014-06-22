@@ -11,7 +11,7 @@
   });
 
   define(["jquery", "knockout"], function($, ko) {
-    var registerComponent;
+    var registerComponent, registerComponentWithDatabind;
     registerComponent = function(name) {
       return ko.components.register(name, {
         template: {
@@ -22,9 +22,15 @@
         }
       });
     };
-    registerComponent("bus");
+    registerComponentWithDatabind = function(name) {
+      return ko.components.register(name, {
+        require: "app/component/" + name + "/" + name
+      });
+    };
+    registerComponentWithDatabind("bus");
     registerComponent("clock");
     registerComponent("weather");
+    registerComponent("bustimetable");
     return ko.applyBindings();
   });
 

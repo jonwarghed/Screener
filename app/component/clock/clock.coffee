@@ -3,7 +3,7 @@ define ["knockout","moment"], (ko,moment) ->
     constructor: ->
       @now = ko.observable(moment())
       @hour = ko.computed =>
-        @now().format('HH:mm:ss')
+        @now().format('HH:mm')
       @date = ko.computed =>
         @now().format('dddd MMMM DD YYYY')
       setInterval @updateClock, 999

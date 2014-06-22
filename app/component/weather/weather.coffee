@@ -28,10 +28,14 @@ define ["knockout","jquery"], (ko,$) ->
 
 
       @weatherData = ko.observable(null)
-      @sunrise = ko.computed =>
-        new Date(@weatherData().sys.sunrise*1000).toTimeString().substring(0,5) if @weatherData()?
-      @sunset = ko.computed =>
-        new Date(@weatherData().sys.sunset*1000).toTimeString().substring 0,5 if @weatherData()?
+      @sunrise = ko.computed
+        read: () =>
+          new Date(@weatherData().sys.sunrise * 1000).toTimeString().substring(0, 5) if @weatherData()?
+        deferEvaluation: true
+      @sunset = ko.computed
+        read: () =>
+          new Date(@weatherData().sys.sunset*1000).toTimeString().substring 0,5 if @weatherData()?
+        deferEvaluation: true
       @wind = ko.computed =>
         Math.round @weatherData().wind.speed if @weatherData()?
       @temperature = ko.computed =>
@@ -39,9 +43,10 @@ define ["knockout","jquery"], (ko,$) ->
       @weatherIcon = ko.computed =>
         @iconTable[@weatherData().weather[0].icon] if @weatherData()?
       @isSunrise = ko.computed =>
-        @weatherData().sys.sunrise*1000 < new Date < @weatherData().sys.sunset*1000 if @weatherData()?
+        @weatherData().sys.sunrise*1000 < new Date if @weatherData()?
+      @updateCurrentWeather()
 
-      setInterval @updateCurrentWeather,5000
+      setInterval @updateCurrentWeather,60000
 
     updateCurrentWeather: =>
       $.getJSON 'http://api.openweathermap.org/data/2.5/weather', weatherParams, @weatherData

@@ -13,11 +13,16 @@ define ["jquery","knockout"], ($, ko) ->
       template:
         require: "text!app/component/" + name + "/" + name + ".html",
       viewModel:
-        require: "app/component/" + name + "/" + name
+        require : "app/component/" + name + "/" + name
 
-  registerComponent "bus"
+  registerComponentWithDatabind = (name) ->
+    ko.components.register name,
+      require: "app/component/" + name + "/" + name
+
+  registerComponentWithDatabind "bus"
   registerComponent "clock"
   registerComponent "weather"
+  registerComponent "bustimetable"
 
   #Start the application
   ko.applyBindings()
